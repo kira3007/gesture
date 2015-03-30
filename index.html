@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8"/> 
+        <title>手写</title>
+        <script type="text/javascript" src="http://s1.bdstatic.com/r/www/cache/static/jquery/jquery-1.10.2.min_f2fb5194.js"></script>
+        <script type="text/javascript" src="http://cq01-rdqa-pool121.cq01.baidu.com:8090/static/lib/esl.js"></script>
+        <link href="index.css" type="text/css" />
+    </head>
+    <body>
+        <div><input type="text" name="wd" /></div>
+        <div id="wrapper">
+        
+        </div>
+        <!--script src="js/gesture.js" type="text/javascript"></script-->
+        <script>
+            //todo 
+            require.config({baseUrl : './js'});
+            require(["gesture"],function(Gesture){
+                    var g = new Gesture({
+                        container : "#wrapper"
+                        });  
+            });
+        </script>
+    </body>
+</html>
