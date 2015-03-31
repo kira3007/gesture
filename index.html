@@ -5,7 +5,7 @@
         <title>手写</title>
         <script type="text/javascript" src="http://s1.bdstatic.com/r/www/cache/static/jquery/jquery-1.10.2.min_f2fb5194.js"></script>
         <script type="text/javascript" src="http://cq01-rdqa-pool121.cq01.baidu.com:8090/static/lib/esl.js"></script>
-        <link href="index.css" type="text/css" />
+        <link rel="stylesheet" href="index.css" type="text/css" />
     </head>
     <body>
         <div><input type="text" name="wd" /></div>
@@ -18,7 +18,8 @@
             require.config({baseUrl : './js'});
             require(["gesture"],function(Gesture){
                     var g = new Gesture({
-                        container : "#wrapper"
+                        container : "#wrapper",
+                        server : "server/test.php"
                         });  
             });
         </script>

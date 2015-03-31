@@ -57,7 +57,7 @@ define(function(require){
             x = (e.pageX || (e.clientX + $('body').scrollLeft())) - this.target.offset().left;
             y = (e.pageY || (e.clientY + $('body').scrollTop())) - this.target.offset().top;
 
-            return {x : x, y : y};
+            return {x : parseInt(x), y : parseInt(y)};
         },
 
         startLisen : function(){

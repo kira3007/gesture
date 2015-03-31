@@ -24,6 +24,11 @@ define(function(require){
     
     var Process = function(opt){
         $.extend(this, cfg, opt); 
+
+        this.resultCallbacks = $.Callbacks();
+        this.onresult = function(func){
+            this.resultCallbacks.add(func); 
+        };
     };
 
 
@@ -36,14 +41,27 @@ define(function(require){
          * 失败，触发fail事件
          * */
         send : function(data){
-             
+            var _this = this;
+            var toSend = {type : 1, wd : _this.convert(data)};
+
+            var ajax=$.ajax({
+                    url:_this.server,
+                    cache:false,
+                    contentType:"text/html;charset=gb2312",
+                    dataType:"json",
+                    data:toSend,
+                    success : function(res){
+                        _this.resultCallbacks.fire(res); 
+                    },
+                    type:'post'
+                });
         },
 
         //将笔画数据，转换为字符串
         convert : function(data){
             var str = [], _this = this;
             $.each(data,function(_,path){
-                $.map(path,function(point){
+                path = $.map(path,function(point){
                     return point.x + _this.xySeparator + point.y; 
                 }); 
 

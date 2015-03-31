@@ -46,7 +46,10 @@ define(function(require){
 
     $.extend(Panel.prototype,{
         init : function(){
-            this.node = $('<div><canvas width="'+this.width+'" height="'+this.height+'"/></div>').appendTo(this.container); 
+            this.node = $('<div class="gesture-panel" style="width:'+this.width+'px;height:'+this.height+'px">'+
+                            '<canvas width="'+this.width+'" height="'+this.height+'"/></div>'
+                         ).appendTo(this.container); 
+
             this.$canvas = $(this.container).find('canvas');
             this.canvas = this.$canvas[0];
             this.context = this.canvas.getContext('2d');

@@ -1,0 +1,5 @@
+body,div,p,html{margin:0;padding:0;}
+.gesture-panel{
+    margin:30px auto;
+    border:1px solid #acb5da;
+}
