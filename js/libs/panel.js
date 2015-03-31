@@ -52,6 +52,11 @@ define(function(require){
 
             this.$canvas = $(this.container).find('canvas');
             this.canvas = this.$canvas[0];
+            if (!document.createElement('canvas').getContext) {
+                var excanvas = require('./../plugins/canvas3.0');
+                excanvas && excanvas.init && excanvas.init([this.canvas]); 
+            }
+
             this.context = this.canvas.getContext('2d');
             //set line width
             this.context.lineWidth = this.lineWidth;

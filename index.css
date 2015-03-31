@@ -1,5 +1,18 @@
 body,div,p,html{margin:0;padding:0;}
 .gesture-panel{
-    margin:30px auto;
+    clear:both;
+    margin:0 auto;
     border:1px solid #acb5da;
+}
+
+.gesture-result{
+    margin:0 auto;
+    width:450px;
+    border:1px solid #acb5da;
+    border-bottom:0;
+}
+
+.gesture-result .words,
+.gesture-result .btns{
+    float:left;
 }
