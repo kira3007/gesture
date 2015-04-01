@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="index.css" type="text/css" />
     </head>
     <body>
-        <div><input type="text" name="wd" /></div>
+        <div><input type="text" name="wd" id="wd"/></div>
         <div id="wrapper">
         
         </div>
@@ -17,10 +17,20 @@
             //todo 
             require.config({baseUrl : './js'});
             require(["gesture"],function(Gesture){
+                    var $wd = $('#wd');
                     var g = new Gesture({
                         container : "#wrapper",
                         server : "server/test.php"
-                        });  
+                    });  
+
+                    g.onresult(function(word){
+                        var v = $wd.val();
+                        $wd.val(v + word); 
+                    }).onundo(function(){
+                        var v = $wd.val();
+                        v = v.slice(0,v.length - 1);
+                        $wd.val(v);
+                    });
             });
         </script>
     </body>

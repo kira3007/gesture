@@ -29,6 +29,8 @@ define(function(require){
         this.onresult = function(func){
             this.resultCallbacks.add(func); 
         };
+
+        this.wd = null;
     };
 
 
@@ -39,17 +41,36 @@ define(function(require){
          * 发送数据到服务器
          * 成功返回结果，触发result事件
          * 失败，触发fail事件
+         * send 通过手写的数据
          * */
         send : function(data){
             var _this = this;
             var toSend = {type : 1, wd : _this.convert(data)};
+            this.wd = toSend.wd;
+            this._sendData(toSend); 
+        },
 
+        //联想单词
+        image : function(word){
+            var _this = this;
+            //word 编码 
+            var encodeWord = (escape(word).split("%u"))[1];
+            console.log(encodeWord);
+            this._sendData({
+                //stk : _this.wd,//貌似可以不用发
+                type : 2,
+                wd : encodeWord
+            });
+        },
+
+        _sendData : function(data){
+            var _this = this;
             var ajax=$.ajax({
                     url:_this.server,
                     cache:false,
                     contentType:"text/html;charset=gb2312",
                     dataType:"json",
-                    data:toSend,
+                    data:data,
                     success : function(res){
                         _this.resultCallbacks.fire(res); 
                     },

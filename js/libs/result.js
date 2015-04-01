@@ -17,16 +17,18 @@ define(function(require){
         container : null,
 
         //是否自动选择第一个词
+        //自动选择，不触发联想
         autoConfirm : true,
 
         //自动选择等待时间
-        waitTime : 3000
+        waitTime : 1000
     };
 
     var Result = function(opt){
         var _this = this;
         $.extend(this, cfg, opt); 
 
+        this.cur_result = null;
         //记录上一次的结果
         //be used in undo
         this.pre_result = null;
@@ -35,7 +37,7 @@ define(function(require){
         this.timer = null;
 
         this.callbacks = {};
-        $.each("result clear undo".split(" "), function(_, e){
+        $.each("result image clear undo".split(" "), function(_, e){
             _this.callbacks[e] = $.Callbacks();
 
             _this["on" + e] = function(func){
@@ -50,6 +52,9 @@ define(function(require){
     $.extend(Result.prototype, {
         init : function(){
             var _this = this;
+            //当前词是否进行过联想
+            this.imaged = false;
+
             this.$node = $('<div class="gesture-result"><div class="words"></div><div class="btns">'+
                                 '<a href="javascript:void(0);" class="undo">撤销</a>'+ 
                                 '<a href="javascript:void(0);" class="clear">重写</a>'+ 
@@ -61,7 +66,7 @@ define(function(require){
 
             this.$words.delegate('a','click',function(){
                 _this.select(_this.$words.find('a').index($(this)));
-                console.log(this.innerHTML); 
+                //console.log(this.innerHTML); 
             });
 
             this.$undo.click(function(){
@@ -73,12 +78,18 @@ define(function(require){
             });
         },
 
+        //开始一个新的词，设置联想开启
+        setImage : function(){
+            this.imaged = false; 
+        },
+
         updateResult : function(result){
             var html = '';
             if(result && !result.s) return;
 
             if(result && result.s){
-                $.each(result.s.split(""),function(_, word){
+                //取前10个
+                $.each(result.s.split("").slice(0,10),function(_, word){
                     html += '<a href="javascript:void(0);">'+word+'</a>'; 
                 }); 
             }
@@ -89,14 +100,20 @@ define(function(require){
 
         show : function(result){
             var _this = this;
-            this.pre_result = result; 
+            this.pre_result = this.cur_result;
+            this.cur_result = result; 
             this.updateResult(result);
 
+            //如果不自动确认
             if(!this.autoConfirm) return;
 
             if(this.timer){
                 clearTimeout(this.timer); 
+                this.timer = null;
             }
+
+            //已经联想过
+            if(this.imaged) return;
 
             this.timer = setTimeout(function(){
                 _this.select(); 
@@ -107,7 +124,14 @@ define(function(require){
         //触发onresult 事件
         select : function(index){
             index = index || 0; 
-            this.callbacks['result'].fire(this.$words.find('a').eq(index).html()); 
+            var word = this.$words.find('a').eq(index).html();
+            this.callbacks['result'].fire(word); 
+
+            //联想
+            if(!this.imaged){
+                this.callbacks["image"].fire(word);
+                this.imaged = true;
+            }
         },
 
         clear : function(){
@@ -117,6 +141,7 @@ define(function(require){
 
         undo : function(){
             this.updateResult(this.pre_result);
+            this.imaged = false;
             this.callbacks['undo'].fire(); 
         }
     });

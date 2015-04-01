@@ -10,9 +10,50 @@ body,div,p,html{margin:0;padding:0;}
     width:450px;
     border:1px solid #acb5da;
     border-bottom:0;
+    *zoom:1;
+}
+.gesture-result:after{
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
 }
 
 .gesture-result .words,
 .gesture-result .btns{
     float:left;
+}
+
+.gesture-result .words{
+    width:70%;
+    height:24px;
+}
+.gesture-result a{
+    color:#333;
+    text-decoration:none;
+    display:inline-block;
+    text-align:center;
+    line-height:24px;
+}
+
+.gesture-result .words a{
+    font-size:16px;
+    font-weight:bold;
+    width:10%;
+    border-right:1px solid #acb5da;
+    margin-right:-1px;
+}
+
+.gesture-result .btns{
+    width:30%;
+}
+
+.gesture-result .clear,
+.gesture-result .undo{
+    width:50%;
+    border-left:1px solid #acb5da;
+    margin-left:-1px;
+    background-color:#dbe1f3;
 }
