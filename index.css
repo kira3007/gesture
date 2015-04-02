@@ -1,8 +1,33 @@
 body,div,p,html{margin:0;padding:0;}
+#wd{
+    font-size:24px;
+    width:500px;
+}
+
 .gesture-panel{
     clear:both;
     margin:0 auto;
     border:1px solid #acb5da;
+}
+.gesture-panel .gesture-bg,
+.gesture-panel .panel{
+    position:absolute;
+}
+.gesture-panel .gesture-bg{
+    z-index:-1;
+}
+.gesture-panel .gesture-bg p{
+    font-family:"KaiTi","宋体";
+    font-size:250px;
+    width:450px;
+    height:450px;
+    line-height:450px;
+    text-align:center;
+    position:absolute;
+    color:#f0f0f0;
+}
+.gesture-panel .gesture-bg .canvas-bg{
+    position:absolute;
 }
 
 .gesture-result{

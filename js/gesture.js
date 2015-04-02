@@ -23,7 +23,7 @@ define(function(require){
 
         panelHeight : 450,
 
-        autoConfirmWaitTime : 1000,
+        autoConfirmWaitTime : 2000,
 
         penSize : 3,
 
