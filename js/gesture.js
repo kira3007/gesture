@@ -31,14 +31,32 @@ define(function(require){
 
         server : '',
 
-        autoConfirm : true,
+        //自动确认
+        autoConfirm : false,
 
-        twoFingerOn : false
+        //右击鼠标确认
+        rightClkConfirm : false,
+
+        //双击鼠标确认
+        doubleClkConfirm : false,
+
+        twoFingerOn : false,
+
+        //是否开启Undo
+        enableUndo : true
     };
 
     var Gesture = function(opt){
         var _this = this;
         $.extend(this, cfg, opt); 
+
+        //confirm 设置优先级 right > dooble > auto
+        if(this.rightClkConfirm || this.doubleClkConfirm){
+            this.autoConfirm = false;
+            
+            if(this.rightClkConfirm)
+               this.doubleClkConfirm = false; 
+        }
         
         //自身事件
         this.callbacks = {};
@@ -91,6 +109,14 @@ define(function(require){
             _this.process.send(_this.panel.getData());
             //新的word，都默认打开联想
             _this.result.setImage();
+        }).onrightClick(function(){
+            if(_this.rightClkConfirm) {
+                _this.result.select(); 
+            }
+        }).ondoubleClick(function(){
+            if(_this.doubleClkConfirm) {
+                _this.result.select(); 
+            }
         });
 
         //选择一个字,更新输出
@@ -103,7 +129,9 @@ define(function(require){
         }).onclear(function(){
             _this.panel.clear(); 
         }).onundo(function(){
-            _this.callbacks["undo"].fire();
+            if(_this.enableUndo){
+                _this.callbacks["undo"].fire();
+            }
         });
     };
 

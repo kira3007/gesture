@@ -112,7 +112,7 @@ define(function(require){
                 this.timer = null;
             }
 
-            //已经联想过
+            //已经联想过，不自动进行确认
             if(this.imaged) return;
 
             this.timer = setTimeout(function(){
@@ -125,13 +125,15 @@ define(function(require){
         select : function(index){
             index = index || 0; 
             var word = this.$words.find('a').eq(index).html();
+            if(word === undefined) return;
+
             this.callbacks['result'].fire(word); 
 
             //联想
-            if(!this.imaged){
+            //if(!this.imaged){
                 this.callbacks["image"].fire(word);
                 this.imaged = true;
-            }
+            //}
         },
 
         clear : function(){

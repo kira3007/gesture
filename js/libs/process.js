@@ -52,6 +52,7 @@ define(function(require){
 
         //联想单词
         image : function(word){
+            if(word === undefined) return;
             var _this = this;
             //word 编码 
             var encodeWord = (escape(word).split("%u"))[1];
@@ -72,6 +73,9 @@ define(function(require){
                     dataType:"json",
                     data:data,
                     success : function(res){
+                        //结果为空
+                        if(res && res.s == "") return;
+
                         _this.resultCallbacks.fire(res); 
                     },
                     type:'post'
