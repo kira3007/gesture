@@ -105,9 +105,9 @@ define(function(require){
 
                 //鼠标事件
                 //兼容性如何？
-                if(e.originalEvent instanceof MouseEvent){
+                //if(e.originalEvent instanceof MouseEvent){
                     _this._fire('rightClick','');
-                }
+                //}
             })
             .bind('dblclick',function(e){
                 _this._fire('doubleClick',''); 

@@ -44,6 +44,15 @@ define(function(require){
         };
     };
 
+    function hasSilverlight() {
+        try {
+            new ActiveXObject('AgControl.AgControl');
+            return true;
+        } catch (_) {
+            return false;
+        }
+    }
+
     $.extend(Panel.prototype,{
         init : function(){
             this.node = $('<div class="gesture-panel" style="width:'+this.width+'px;height:'+this.height+'px">'+
@@ -58,7 +67,12 @@ define(function(require){
             this.bgCanvas = $(this.bg).find('.canvas-bg')[0];
 
             if (!document.createElement('canvas').getContext) {
-                var excanvas = require('./../plugins/canvas3.0');
+                if(hasSilverlight()){
+                    var excanvas = require('./../plugins/canvas3.0');
+                }else{
+                    var excanvas = require('./../plugins/canvas');
+                }
+
                 excanvas && excanvas.init && excanvas.init([this.canvas,this.bgCanvas]); 
             }
 
