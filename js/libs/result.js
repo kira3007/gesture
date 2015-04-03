@@ -85,7 +85,7 @@ define(function(require){
 
         updateResult : function(result){
             var html = '';
-            if(result && !result.s) return;
+            //if(result && !result.s) return;
 
             if(result && result.s){
                 //取前10个
@@ -95,6 +95,11 @@ define(function(require){
             }
 
             this.$words.html(html);
+            //add big word
+            //突出显示
+            if(result && result.s){
+                this.$outstanding = $('<p>'+result.s[0]+'</p>').prependTo(this.$words);
+            }
             return this;
         },
 

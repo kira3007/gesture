@@ -77,7 +77,7 @@ define(function(require){
     $.extend(Ges.prototype,{
         _fire : function(evt){
             var event = evt;
-            console.log(event);
+            //console.log(event);
             [].shift.call(arguments);
             this.callbacks[event].fire.apply(this.callbacks[event],arguments);//fire(); 
         },
@@ -102,7 +102,12 @@ define(function(require){
             })
             .bind('contextmenu',function(e){
                 e.preventDefault();
-                _this._fire('rightClick','');
+
+                //鼠标事件
+                //兼容性如何？
+                if(e.originalEvent instanceof MouseEvent){
+                    _this._fire('rightClick','');
+                }
             })
             .bind('dblclick',function(e){
                 _this._fire('doubleClick',''); 

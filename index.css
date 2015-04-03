@@ -82,3 +82,16 @@ body,div,p,html{margin:0;padding:0;}
     margin-left:-1px;
     background-color:#dbe1f3;
 }
+
+.gesture-result .words p{
+    width:63px;
+    height:63px;
+    line-height:63px;
+    font-size:48px;
+    text-align:center;
+    font-weight:bold;
+    position:absolute;
+    border:1px solid #acb5da;
+    margin:24px 0 0 -1px;
+    background-color:#fff;
+}

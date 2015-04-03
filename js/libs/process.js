@@ -56,7 +56,7 @@ define(function(require){
             var _this = this;
             //word 编码 
             var encodeWord = (escape(word).split("%u"))[1];
-            console.log(encodeWord);
+            //console.log(encodeWord);
             this._sendData({
                 //stk : _this.wd,//貌似可以不用发
                 type : 2,
@@ -74,7 +74,7 @@ define(function(require){
                     data:data,
                     success : function(res){
                         //结果为空
-                        if(res && res.s == "") return;
+                        //if(res && res.s == "") return;
 
                         _this.resultCallbacks.fire(res); 
                     },
